@@ -1,5 +1,5 @@
 import { Address, BigInt } from "@graphprotocol/graph-ts";
-import { Account, Collection, NFT } from '../generated/schema';
+import { Account, CryptoSkull } from '../generated/schema';
 
 export const getOrCreateAccount = (address: Address, timestamp: BigInt): Account => {
   const accountId = `account-${address.toHexString()}`;
@@ -8,7 +8,7 @@ export const getOrCreateAccount = (address: Address, timestamp: BigInt): Account
 
   account = new Account(accountId);
   account.address = address.toHexString();
-  account.skullCount = 0;
+  account.cryptoSkullCount = 0;
   account.demonicSkullCount = 0;
   account.demonicBloodCount = 0;
   account.createdAtTimestamp = timestamp;
@@ -18,32 +18,17 @@ export const getOrCreateAccount = (address: Address, timestamp: BigInt): Account
   return account;
 }
 
-export const getOrCreateCollection = (address: Address, timestamp: BigInt): Collection => {
-  const collectionId = `collection-${address.toHexString()}`;
-  let collection = Collection.load(collectionId);
-  if (collection != null) return collection;
+export const getOrCreateCryptoSkull = (tokenId: BigInt, timestamp: BigInt): CryptoSkull => {
+  const nftId = `nft-cryptoskull-${tokenId}`;
+  let skull = CryptoSkull.load(nftId);
+  if (skull != null) return skull;
 
-  collection = new Collection(collectionId);
-  collection.address = address.toHexString();
-  collection.createdAtTimestamp = timestamp;
-  collection.lastActivityAtTimestamp = timestamp;
+  skull = new CryptoSkull(nftId);
+  skull.tokenId = tokenId;
+  skull.transferCount = 0;
+  skull.createdAtTimestamp = timestamp;
+  skull.lastActivityAtTimestamp = timestamp;
 
-  collection.save();
-  return collection;
-}
-
-export const getOrCreateNft = (tokenId: BigInt, collectionAddress: Address, timestamp: BigInt): NFT => {
-  const collection = getOrCreateCollection(collectionAddress, timestamp);
-  const nftId = `nft-${collection.id}-${tokenId}`;
-  let nft = NFT.load(nftId);
-  if (nft != null) return nft;
-
-  nft = new NFT(nftId);
-  nft.tokenId = tokenId;
-  nft.collection = collection.id;
-  nft.createdAtTimestamp = timestamp;
-  nft.lastActivityAtTimestamp = timestamp;
-
-  nft.save();
-  return nft;
+  skull.save();
+  return skull;
 }
