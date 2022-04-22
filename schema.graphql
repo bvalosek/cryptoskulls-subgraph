@@ -23,17 +23,15 @@ type Collection @entity {
 
 type CryptoSkull @entity {
   id: ID!
+  nft: NFT!
   bloodClaimed: Boolean!
-  demonized: Boolean!
-
-  nft: NFT! @derivedFrom(field: "skull")
+  demonSkull: DemonSkull # null if not demonized yet
 }
 
 type DemonSkull @entity {
   id: ID!
+  nft: NFT!
   spawnedFrom: CryptoSkull!
-
-  nft: NFT! @derivedFrom(field: "demonSkull")
 }
 
 type Account @entity {
