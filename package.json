@@ -1,0 +1,21 @@
+{
+  "name": "@bvalosek/cryptoskulls-subgraph",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "prepare": "mustache config/${NETWORK:-rinkeby}.json subgraph.template.yaml > subgraph.yaml",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ bvalosek/cryptoskulls-${NETWORK:-rinkeby}"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.29.0",
+    "@graphprotocol/graph-ts": "0.26.0"
+  },
+  "devDependencies": {
+    "mustache": "4.2.0"
+  }
+}
