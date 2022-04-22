@@ -4,7 +4,6 @@ type CryptoSkull @entity {
   owner: Account!
   transferCount: Int!
   bloodClaimedAtTimestamp: BigInt # null if blood not claimed
-  demonicSkull: DemonicSkull # null if not demonized
   demonizedAtTimestamp: BigInt # null if not demonized
 
   createdAtTimestamp: BigInt!
@@ -16,7 +15,6 @@ type DemonicSkull @entity {
   tokenId: BigInt!
   owner: Account!
   transferCount: Int!
-  spawnedFrom: CryptoSkull @derivedFrom(field: "demonicSkull")
 
   createdAtTimestamp: BigInt!
   lastActivityAtTimestamp: BigInt!

@@ -1,6 +1,6 @@
-import { Transfer } from '../generated/DemonicSkullsDataSource/DemonicSkulls';
+import { ClaimSkullsCall, Transfer } from '../generated/DemonicSkullsDataSource/DemonicSkulls';
 import { ZERO_ADDRESS } from './constants';
-import { getOrCreateAccount, getOrCreateDemonicSkull } from './entities';
+import { getOrCreateAccount, getOrCreateCryptoSkull, getOrCreateDemonicSkull } from './entities';
 
 export function handleTransfer(event: Transfer): void {
   const to = event.params.to;
@@ -28,4 +28,21 @@ export function handleTransfer(event: Transfer): void {
   }
 
   skull.save();
+}
+
+export function handleClaimSkullsCall(call: ClaimSkullsCall): void {
+  const timestamp = call.block.timestamp;
+
+  for (let i = 0; i < call.inputs.ids.length; i++) {
+    const id = call.inputs.ids[i];
+    const skull = getOrCreateCryptoSkull(id, timestamp);
+    skull.demonizedAtTimestamp = timestamp;
+    skull.lastActivityAtTimestamp = timestamp;
+    skull.save();
+
+    // TODO: can use the blood amount from the call to infer the level, and then
+    // infer the ids of all claimed by either using same ids as claimed for L1, or
+    // using levelTwoIndex / levelThreeIndex methods to figure out the last L2/L3
+    // ID issued
+  }
 }

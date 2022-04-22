@@ -40,3 +40,7 @@ dataSources:
     eventHandlers:
     - event: Transfer(indexed address,indexed address,indexed uint256)
       handler: handleTransfer
+    callHandlers:
+    - function: claimSkulls(uint256[],uint256)
+      handler: handleClaimSkullsCall
+
