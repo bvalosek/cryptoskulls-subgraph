@@ -1,6 +1,6 @@
-import { Transfer } from '../generated/CryptoSkullsDataSource/CryptoSkulls';
+import { Transfer } from '../generated/DemonicSkullsDataSource/DemonicSkulls';
 import { ZERO_ADDRESS } from './constants';
-import { getOrCreateAccount, getOrCreateCryptoSkull } from './entities';
+import { getOrCreateAccount, getOrCreateDemonicSkull } from './entities';
 
 export function handleTransfer(event: Transfer): void {
   const to = event.params.to;
@@ -11,17 +11,17 @@ export function handleTransfer(event: Transfer): void {
 
   const toAccount = getOrCreateAccount(to, timestamp);
   toAccount.lastActivityAtTimestamp = timestamp;
-  toAccount.cryptoSkullCount += 1;
+  toAccount.demonicSkullCount += 1;
   toAccount.save();
 
-  const skull = getOrCreateCryptoSkull(tokenId, timestamp);
+  const skull = getOrCreateDemonicSkull(tokenId, timestamp);
   skull.owner = toAccount.id;
   skull.lastActivityAtTimestamp = timestamp;
 
   if (!isMint) {
     const fromAccount = getOrCreateAccount(from, timestamp);
     fromAccount.lastActivityAtTimestamp = timestamp;
-    fromAccount.cryptoSkullCount -= 1;
+    fromAccount.demonicSkullCount -= 1;
     fromAccount.save();
 
     skull.transferCount += 1;

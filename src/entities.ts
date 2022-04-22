@@ -1,5 +1,5 @@
 import { Address, BigInt } from "@graphprotocol/graph-ts";
-import { Account, CryptoSkull } from '../generated/schema';
+import { Account, CryptoSkull, DemonicSkull } from '../generated/schema';
 
 export const getOrCreateAccount = (address: Address, timestamp: BigInt): Account => {
   const accountId = `account-${address.toHexString()}`;
@@ -19,11 +19,26 @@ export const getOrCreateAccount = (address: Address, timestamp: BigInt): Account
 }
 
 export const getOrCreateCryptoSkull = (tokenId: BigInt, timestamp: BigInt): CryptoSkull => {
-  const nftId = `nft-cryptoskull-${tokenId}`;
-  let skull = CryptoSkull.load(nftId);
+  const skullId = `cryptoskull-${tokenId}`;
+  let skull = CryptoSkull.load(skullId);
   if (skull != null) return skull;
 
-  skull = new CryptoSkull(nftId);
+  skull = new CryptoSkull(skullId);
+  skull.tokenId = tokenId;
+  skull.transferCount = 0;
+  skull.createdAtTimestamp = timestamp;
+  skull.lastActivityAtTimestamp = timestamp;
+
+  skull.save();
+  return skull;
+}
+
+export const getOrCreateDemonicSkull = (tokenId: BigInt, timestamp: BigInt): DemonicSkull => {
+  const skullId = `demonicskull-${tokenId}`;
+  let skull = DemonicSkull.load(skullId);
+  if (skull != null) return skull;
+
+  skull = new DemonicSkull(skullId);
   skull.tokenId = tokenId;
   skull.transferCount = 0;
   skull.createdAtTimestamp = timestamp;

@@ -16,7 +16,7 @@ type DemonicSkull @entity {
   tokenId: BigInt!
   owner: Account!
   transferCount: Int!
-  spawnedFrom: CryptoSkull!
+  spawnedFrom: CryptoSkull @derivedFrom(field: "demonicSkull")
 
   createdAtTimestamp: BigInt!
   lastActivityAtTimestamp: BigInt!
