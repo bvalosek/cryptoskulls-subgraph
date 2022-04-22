@@ -1,0 +1,50 @@
+type NFT @entity {
+  id: ID!
+  tokenId: BigInt!
+  collection: Collection!
+  owner: Account!
+
+  skull: CryptoSkull # null if not an og skull
+  demonSkull: DemonSkull # null if not a demon skull
+
+  createdAtTimestamp: BigInt!
+  lastActivityAtTimestamp: BigInt!
+}
+
+type Collection @entity {
+  id: ID!
+  address: String!
+
+  createdAtTimestamp: BigInt!
+  lastActivityAtTimestamp: BigInt!
+
+  nfts: [NFT!]! @derivedFrom(field: "collection")
+}
+
+type CryptoSkull @entity {
+  id: ID!
+  bloodClaimed: Boolean!
+  demonized: Boolean!
+
+  nft: NFT! @derivedFrom(field: "skull")
+}
+
+type DemonSkull @entity {
+  id: ID!
+  spawnedFrom: CryptoSkull!
+
+  nft: NFT! @derivedFrom(field: "demonSkull")
+}
+
+type Account @entity {
+  id: ID!
+  address: String!
+  skullCount: Int!
+  demonicSkullCount: Int!
+  demonicBloodCount: Int!
+
+  createdAtTimestamp: BigInt!
+  lastActivityAtTimestamp: BigInt!
+
+  nfts: [NFT!]! @derivedFrom(field: "owner")
+}
