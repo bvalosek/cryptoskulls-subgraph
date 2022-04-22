@@ -1,5 +1,6 @@
 {
-	"network": "mainnet",
-	"startBlock": "7782722",
-	"CryptoSkullsAddress": "0xc1Caf0C19A8AC28c41Fe59bA6c754e4b9bd54dE9"
+  "network": "mainnet",
+  "startBlock": "7782722",
+  "CryptoSkullsAddress": "0xc1Caf0C19A8AC28c41Fe59bA6c754e4b9bd54dE9",
+  "DemonicSkullsAddress": "0xd3cf04d7a5513ce8148790d90d91361476f5da94"
 }

@@ -1,5 +1,6 @@
 {
-	"network": "mainnet",
-	"startBlock": "7782722",
-	"CryptoSkullsAddress": "0x0000000000000000000000000000000000000000"
+  "network": "rinkeby",
+  "startBlock": "7782722",
+  "CryptoSkullsAddress": "0x0000000000000000000000000000000000000000",
+  "DemonicSkullsAddress": "0x0000000000000000000000000000000000000000"
 }
