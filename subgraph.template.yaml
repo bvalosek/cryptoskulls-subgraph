@@ -21,3 +21,22 @@ dataSources:
     eventHandlers:
     - event: Transfer(indexed address,indexed address,indexed uint256)
       handler: handleTransfer
+- name: DemonicSkullsDataSource
+  kind: ethereum/contract
+  network: {{network}}
+  source:
+    address: "{{DemonicSkullsAddress}}"
+    abi: DemonicSkulls
+    startBlock: {{startBlock}}
+  mapping:
+    kind: ethereum/events
+    apiVersion: 0.0.5
+    language: wasm/assemblyscript
+    file: ./src/demonicskulls.ts
+    entities: [ ]
+    abis:
+    - name: DemonicSkulls
+      file: ./abis/DemonicSkulls.json
+    eventHandlers:
+    - event: Transfer(indexed address,indexed address,indexed uint256)
+      handler: handleTransfer
