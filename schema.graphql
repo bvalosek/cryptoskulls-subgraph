@@ -15,6 +15,7 @@ type DemonicSkull @entity {
   id: ID!
   tokenId: BigInt!
   owner: Account!
+  transferCount: Int!
   spawnedFrom: CryptoSkull!
 
   createdAtTimestamp: BigInt!
