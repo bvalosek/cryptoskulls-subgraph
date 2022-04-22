@@ -43,4 +43,24 @@ dataSources:
     callHandlers:
     - function: claimSkulls(uint256[],uint256)
       handler: handleClaimSkullsCall
-
+- name: DemonsBloodDataSource
+  kind: ethereum/contract
+  network: {{network}}
+  source:
+    address: "{{DemonsBloodAddress}}"
+    abi: DemonsBlood
+    startBlock: {{startBlock}}
+  mapping:
+    kind: ethereum/events
+    apiVersion: 0.0.5
+    language: wasm/assemblyscript
+    file: ./src/demonsblood.ts
+    entities: [ ]
+    abis:
+    - name: DemonsBlood
+      file: ./abis/DemonsBlood.json
+    eventHandlers:
+    - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+      handler: handleTransferSingle
+    - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
+      handler: handleTransferBatch
