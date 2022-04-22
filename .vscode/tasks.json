@@ -17,8 +17,8 @@
   "inputs": [
     {
       "id": "network",
-      "description": "Network Name (eg rinkeby, ropsten, etc)",
-      "default": "rinkeby",
+      "description": "Network Name (eg mainnet)",
+      "default": "mainnet",
       "type": "promptString"
     },
   ]

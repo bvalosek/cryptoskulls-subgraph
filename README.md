@@ -19,7 +19,7 @@ yarn
 Prepare the manifest for a specific network (see `./config`):
 
 ```
-NETWORK=rinkeby yarn prepare
+NETWORK=mainnet yarn prepare
 ```
 
 Generate AssemblyScript bindings from ABIs and graph schema (this does not need
@@ -39,7 +39,7 @@ npx graph auth --product hosted-service $YOUR_AUTH_TOKEN
 Deploy the subgraph to the prepared network:
 
 ```
-NETWORK=rinkeby yarn deploy
+NETWORK=mainnet yarn deploy
 ```
 
 ## Example Queries

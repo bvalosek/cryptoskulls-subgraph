@@ -8,8 +8,8 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "prepare": "mustache config/${NETWORK:-rinkeby}.json subgraph.template.yaml > subgraph.yaml",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ bvalosek/cryptoskulls-${NETWORK:-rinkeby}"
+    "prepare": "mustache config/${NETWORK:-mainnet}.json subgraph.template.yaml > subgraph.yaml",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ bvalosek/cryptoskulls-${NETWORK:-mainnet}"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.29.0",
