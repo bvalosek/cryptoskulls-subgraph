@@ -49,34 +49,140 @@ GraphQL endpoint: `https://api.thegraph.com/subgraphs/name/bvalosek/cryptoskulls
 Get information about a specific CryptoSkull by token ID:
 
 ```graphql
+{
+  cryptoSkull(id: "cryptoskull-1423") {
+    tokenId
+    owner { address cryptoSkullCount }
+    transferCount
+    bloodClaimedAtTimestamp
+    demonizedAtTimestamp
+    createdAtTimestamp
+    lastActivityAtTimestamp
+  }
+}
 ```
 
 Get all CryptoSkulls owned by an account:
 
 ```graphql
+{
+  account(id: "account-0x303eefedee1ba8e5d507a55465d946b2fea18583") {
+    address
+    cryptoSkullCount
+    demonicSkullCount
+    demonicBloodCount
+    ownedCryptoSkulls { tokenId }
+    ownedDemonicSkulls { tokenId }
+    createdAtTimestamp
+    lastActivityAtTimestamp
+  }
+}
 ```
 
 Get first 20 holders that still have at least one CryptoSkulls:
 
 ```graphql
+{
+  accounts(
+    where: {cryptoSkullCount_gt: 0}
+    orderBy: createdAtTimestamp
+    orderDirection: asc
+    first: 20
+  ) {
+    address
+    cryptoSkullCount
+    ownedCryptoSkulls { tokenId }
+    createdAtTimestamp
+    lastActivityAtTimestamp
+  }
+}
 ```
 
 Get all CryptoSkulls that haven't had their Demonic Blood claimed yet:
 
 ```graphql
+{
+  cryptoSkulls(
+    where: {bloodClaimedAtTimestamp: null}
+    orderBy: tokenId
+    orderDirection: asc
+    first: 1000
+  ) {
+    tokenId
+    owner {
+      address
+      lastActivityAtTimestamp
+    }
+    lastActivityAtTimestamp
+  }
+}
 ```
 
 Get the last 20 traded CryptoSkulls:
 
 ```graphql
+{
+  cryptoSkulls(
+    where: {bloodClaimedAtTimestamp: null}
+    orderBy: lastActivityAtTimestamp
+    orderDirection: desc
+    first: 20
+  ) {
+    tokenId
+    demonizedAtTimestamp
+    bloodClaimedAtTimestamp
+    owner {
+      address
+      cryptoSkullCount
+    }
+    transferCount
+    lastActivityAtTimestamp
+  }
+}
 ```
 
-Get a list of the top holders, sorted by CryptoSkull count:
+Get a list of the top 50 holders, sorted by CryptoSkull count:
 
 ```graphql
+{
+  accounts(orderBy: cryptoSkullCount, orderDirection: desc, first: 50) {
+    address
+    cryptoSkullCount
+    demonicBloodCount
+    demonicSkullCount
+    createdAtTimestamp
+    lastActivityAtTimestamp
+    ownedCryptoSkulls(
+      first: 5
+      orderBy: lastActivityAtTimestamp
+      orderDirection: desc
+    ) {
+      tokenId
+      lastActivityAtTimestamp
+    }
+  }
+}
 ```
 
 Get the newest 20 holders:
 
 ```graphql
+{
+  accounts(orderBy: createdAtTimestamp, orderDirection: desc, first: 20) {
+    address
+    cryptoSkullCount
+    demonicBloodCount
+    demonicSkullCount
+    createdAtTimestamp
+    lastActivityAtTimestamp
+    ownedCryptoSkulls(
+      first: 5
+      orderBy: lastActivityAtTimestamp
+      orderDirection: desc
+    ) {
+      tokenId
+      lastActivityAtTimestamp
+    }
+  }
+}
 ```
