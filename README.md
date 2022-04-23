@@ -46,6 +46,12 @@ NETWORK=mainnet yarn deploy
 
 GraphQL endpoint: `https://api.thegraph.com/subgraphs/name/bvalosek/cryptoskulls-mainnet`
 
+GraphQL is extremely flexible, the below examples are just a starting point. Creative use of TheGraph's built in filters, sorting, and node relationships can enable complex queries.
+
+See [TheGraph's GraphQL API reference](https://thegraph.com/docs/en/developer/graphql-api/) for more info.
+
+### Queries
+
 Get information about a specific CryptoSkull by token ID:
 
 ```graphql
