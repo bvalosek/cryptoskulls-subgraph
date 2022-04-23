@@ -64,3 +64,6 @@ dataSources:
       handler: handleTransferSingle
     - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
       handler: handleTransferBatch
+    callHandlers:
+    - function: claim(uint256[])
+      handler: handleClaimCall

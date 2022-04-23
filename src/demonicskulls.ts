@@ -1,6 +1,6 @@
 import { ClaimSkullsCall, Transfer } from '../generated/DemonicSkullsDataSource/DemonicSkulls';
 import { ZERO_ADDRESS } from './constants';
-import { getOrCreateAccount, getOrCreateCryptoSkull, getOrCreateDemonicSkull } from './entities';
+import { getAccountById, getOrCreateAccount, getOrCreateCryptoSkull, getOrCreateDemonicSkull } from './entities';
 
 export function handleTransfer(event: Transfer): void {
   const to = event.params.to;
@@ -44,5 +44,9 @@ export function handleClaimSkullsCall(call: ClaimSkullsCall): void {
     // infer the ids of all claimed by either using same ids as claimed for L1, or
     // using levelTwoIndex / levelThreeIndex methods to figure out the last L2/L3
     // ID issued
+
+    const holder = getAccountById(skull.owner);
+    holder.lastActivityAtTimestamp = timestamp;
+    holder.save();
   }
 }

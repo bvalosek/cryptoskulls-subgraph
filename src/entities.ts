@@ -18,6 +18,12 @@ export const getOrCreateAccount = (address: Address, timestamp: BigInt): Account
   return account;
 }
 
+export const getAccountById = (id: string): Account => {
+  const holder = Account.load(id);
+  if (!holder) throw new Error(`Account does not exist: ${id}`);
+  return holder;
+}
+
 export const getOrCreateCryptoSkull = (tokenId: BigInt, timestamp: BigInt): CryptoSkull => {
   const skullId = `cryptoskull-${tokenId}`;
   let skull = CryptoSkull.load(skullId);

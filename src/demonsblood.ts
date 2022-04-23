@@ -1,7 +1,7 @@
 import { Address, BigInt } from '@graphprotocol/graph-ts';
-import { TransferSingle, TransferBatch } from '../generated/DemonsBloodDataSource/DemonsBlood'
+import { TransferSingle, TransferBatch, ClaimCall } from '../generated/DemonsBloodDataSource/DemonsBlood'
 import { ZERO_ADDRESS } from './constants';
-import { getOrCreateAccount } from './entities';
+import { getAccountById, getOrCreateAccount, getOrCreateCryptoSkull } from './entities';
 
 export function handleTransferSingle(event: TransferSingle): void {
   if (!event.params.id.isZero()) {
@@ -27,6 +27,21 @@ export function handleTransferBatch(event: TransferBatch): void {
       event.params.from,
       event.params.values[i],
       event.block.timestamp);
+  }
+}
+
+export function handleClaimCall(call: ClaimCall): void {
+  const timestamp = call.block.timestamp;
+  for (let i = 0; i < call.inputs.tokenIds.length; i++) {
+    const tokenId = call.inputs.tokenIds[i];
+    const skull = getOrCreateCryptoSkull(tokenId, timestamp);
+    skull.bloodClaimedAtTimestamp = timestamp;
+    skull.lastActivityAtTimestamp = timestamp;
+    skull.save();
+
+    const holder = getAccountById(skull.owner);
+    holder.lastActivityAtTimestamp = timestamp;
+    holder.save();
   }
 }
 
